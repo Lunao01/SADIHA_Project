@@ -6,7 +6,8 @@
 tiene_sombrero(si).
 tiene_sombrero(no).
 
-% ¿Tamaño del sombrero? diametro_sombrero([min,max]).
+% ¿Tamaño del sombrero? diametro_sombrero(min,max).
+diametro_sombrero(2,4).
 
 % ¿Forma del sombrero?
 forma_sombrero(convexo).
@@ -22,8 +23,8 @@ color_sombrero(anaranjado).
 color_sombrero(ocre).
 color_sombrero(blanquecino).
 color_sombrero(escarlata).
-color_sombrero(pardo gris).
-color_sombrero(verde azulado).
+color_sombrero(pardo_gris).
+color_sombrero(verde_azulado).
 color_sombrero(amarillento).
 color_sombrero(negruzco).
 
@@ -37,7 +38,7 @@ superficie_sombrero(escamada).
 % ¿Forma del carpóforo? (en el caso de no tener sombrero)
 forma_carpoforo(oreja).
 forma_carpoforo(semicircular).
-forma_carpoforo(pezuña).
+forma_carpoforo(pezuna).
 
 % ¿Color carpoforo?
 color_carpoforo(pardo_oscuro).
@@ -70,7 +71,7 @@ color_himenio(anaranjado).
 color_himenio(amarillento).
 color_himenio(pardo_rojizo).
 color_himenio(rosado).
-color_himenio(verde_pálido).
+color_himenio(verde_palido).
 color_himenio(pardo_gris).
 color_himenio(rojo_cinabrio).
 color_himenio(gris_claro).
@@ -111,10 +112,8 @@ orden(agaricales)   :-  tiene_sombrero(si),
                         tipo_himenio(laminado), 
                         tiene_pie(si).
 
-orden(auriculariales)   :-  tiene_sombrero(no), 
-                            superficie_carpoforo(gelatinosa), 
-                            tipo_himenio(plegado), 
-                            tiene_pie(no).
+orden(auriculariales)   :-  superficie_carpoforo(gelatinosa), 
+                            tipo_himenio(plegado).
 
 orden(boletales)    :-  tiene_sombrero(si), 
                         tiene_pie(si).
@@ -127,3 +126,30 @@ orden(thelephorales)    :-  forma_sombrero(coraloide).
 
 orden(cantharellales)   :-  tiene_sombrero(si),
                             forma_sombrero(centro_hundido). 
+
+
+
+%% SETAS DE LA ORDEN DE LAS Auriculariales (orden 2)
+seta(auricularia_auricula-judae)    :-  orden(auriculariales), 
+                                        tiene_sombrero(no), 
+                                        forma_carpoforo(oreja), 
+                                        color_carpoforo(pardo_oscuro), 
+                                        color_himenio(pardo_oscuro), 
+                                        tiene_pie(no).
+
+seta(auricularia_mesenterica)   :-  orden(auriculariales),
+                                    tiene_sombrero(no), 
+                                    forma_carpoforo(semicircular), 
+                                    color_carpoforo(marron_rojizo), 
+                                    color_himenio(marron_rojizo), 
+                                    tiene_pie(no).
+
+
+%% SETAS DE LA ORDEN DE LAS Thelephorales (orden 5)
+seta(hydnellum_ferrugineum) :-  orden(thelephorales),
+                                tiene_sombrero(si),
+                                diametro_sombrero(2,4).
+
+
+seta(thelephora_terrestris) :-  orden(thelephorales).
+
