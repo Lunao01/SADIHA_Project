@@ -42,6 +42,9 @@ verificarExiseCaracteristica(Valor,MenuList):-
     member(Valor, MenuList), 
     !. 
 
+limpiar :- retractall(known(_,_,_)), retractall(salida(_,_)).
+limpiar :- true.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% CARACTERISTICAS %%%
 %% Características: Sombrero %%
