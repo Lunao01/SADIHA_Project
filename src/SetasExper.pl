@@ -61,7 +61,7 @@ sombrero_tamano(Vmin,Vmax) :- verificarTamano(Vmax,Vmin).
 
 %% Características: Carpóforo %%
 % Forma del carpóforo
-carpoforo_forma(X) :- verificar('forma carpoforo', X, ['oreja','semicircular','pezuña']).
+carpoforo_forma(X) :- verificar('forma carpoforo', X, ['oreja','semicircular','pezuna']).
 % Color del carpóforo
 carpoforo_color(X) :- verificar('color carpoforo', X, ['pardo oscuro', 'marron rojizo', 'pardo gris', 'rojo cinabrio','grisaceo', 'pardo rojizo', 'circulo concentrico pardos y blanquecinos']).
 % Superficie del carpóforo
@@ -335,7 +335,7 @@ seta('Pycnoporus cinnabarinus'):-
     
 seta('Fomes fomentarius'):-
     orden('Polyporales'),
-    carpoforo_forma('pezuña'),
+    carpoforo_forma('pezuna'),
     carpoforo_color('grisaceo'),
     carpoforo_superficie('seca'),
     himenio_color('gris claro'),
