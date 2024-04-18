@@ -5,6 +5,7 @@ from tkinter.ttk import Combobox
 from PIL import Image, ImageTk
 import os
 import webbrowser
+from pyswip import Prolog
 
 
 """
@@ -98,6 +99,7 @@ def search_mushroom():
                             messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
                         else:
                             print("CORRECTISIMO") # AQUI VA LA LLAMADA AL MÉTODO PARA EL CÁLCULO CON PROLOG
+                            inference(tiene_sombrero.get(), tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas,tiene_pie.get(), pie_con_anillo.get(), color_pie, tipo_pie)
                     else:
                         messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
                 else:
@@ -118,11 +120,106 @@ def search_mushroom():
                     messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
                 else:
                     print("CORRECTISIMO") # AQUI VA LA LLAMADA AL MÉTODO PARA EL CÁLCULO CON PROLOG
+                    inference(tiene_sombrero.get(), number, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas,tiene_pie.get(), pie_con_anillo.get(), color_pie, tipo_pie)
             else:
                 messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
         else:
             messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
 
+
+"""
+    Method name:   inference
+    Function:      Método para empleado para ejecutar un archivo pl y generar la inferencia con el objetivo de encontrar X seta.
+"""
+def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
+    # Carga el archivo Prolog
+    prolog = Prolog()
+    # Se generan los hechos
+    hechos = create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie)
+    
+    for hecho in hechos:
+        prolog.assertz(hecho)
+
+    prolog.consult("./src/SetasExper.pl")
+    # Consulta sobre la seta
+    consulta = "seta(X)"
+    soluciones = list(prolog.query(consulta))
+
+    if len(soluciones) == 0:
+        messagebox.showinfo("Mensaje", "No se ha encontrado ninguna seta con esas características.")
+    else:
+        # Resultados
+        messagebox.showinfo("Mensaje", "¡Seta encontrada! Generando el informe.")
+        respuesta = list(prolog.query("seta(X)"))
+
+        print("Respuesta:", respuesta[0]["X"])
+        print("\nHabitat:")
+        print(list(prolog.query("salida(habitat,X)"))[0]["X"])
+        print("\nComestibilidad:")
+        print(list(prolog.query("salida(comestibilidad,X)"))[0]["X"])
+
+
+
+"""
+    Method name:   create_facts
+    Function:      Crear los hechos a partir de los datos dados por el usuario.
+"""
+def create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
+    # Prueba para saber que funciona bien
+    print("Variables:")
+    print("Tiene sombrero:", tiene_sombrero)
+    print("Tamaño sombrero:", tamano_sombrero)
+    print("Forma sombrero:", forma_sombrero)
+    print("Color sombrero:", color_sombrero)
+    print("Superficie sombrero:", superficie_sombrero)
+    print("Forma carpóforo:", forma_carpoforo)
+    print("Color carpóforo:", color_carpoforo)
+    print("Superficie carpóforo:", superficie_carpoforo)
+    print("Tipo himenio:", tipo_himenio)
+    print("Color himenio:", color_himenio)
+    print("Tipo láminas:", tipo_laminas)
+    print("Tiene pie:", tiene_pie)
+    print("Pie con anillo:", pie_con_anillo)
+    print("Color pie:", color_pie)
+    print("Tipo pie:", tipo_pie)
+    
+    # Se crea un vector con todos los hechos que se quieren almacenar al ejecutar el archivo .pl
+    facts = []
+    # Si tiene sombrero
+    if tiene_sombrero == 1:
+        facts.append("known(yes, sombrero, 'si')")
+        facts.append("known(yes, 'tamano sombrero',"+ tamano_sombrero +")")
+        facts.append("known(yes, 'forma sombrero',"+ forma_sombrero +")")
+        facts.append("known(yes, 'color sombrero',"+ color_sombrero +")")
+        facts.append("known(yes, 'superficie sombrero',"+ superficie_sombrero+")")
+
+    else: # Si no tiene sombrero
+        facts.append("known(yes, sombrero, 'no')")
+        facts.append("known(yes, 'forma carpoforo',"+ forma_carpoforo +")")
+        facts.append("known(yes, 'color carpoforo',"+ color_carpoforo +")")
+        facts.append("known(yes, 'superficie carpoforo',"+ superficie_carpoforo +")")
+
+    # Himenio
+    facts.append("known(yes, 'tipo himenio',"+ tipo_himenio +")")
+    facts.append("known(yes, 'color himenio',"+ color_himenio +")")
+    # Si el himenio es laminado hay que tener en cuenta el tipo de láminas
+    if tipo_himenio == "laminado":
+        facts.append("known(yes, 'tipo laminas',"+ tipo_laminas +")")
+
+    # Ahora hay que tener en cuenta el pie
+    if tiene_pie == 1: # Sí tiene pie
+        facts.append("known(yes, pie, 'si')")
+        # Comprobamos si el pie tiene anillo o no
+        if pie_con_anillo == 1: # Sí tiene anillo
+            facts.append("known(yes, 'anillo', 'si')")
+        else: # No tiene anillo
+            facts.append("known(yes, 'anillo', 'no')")
+        facts.append("known(yes, 'color pie',"+ color_pie +")")
+        facts.append("known(yes, 'tipo pie',"+ tipo_pie +")")
+    else: # No tiene pie
+        facts.append("known(yes, pie, 'no')")
+
+    return facts
 
 
 """

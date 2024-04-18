@@ -12,7 +12,7 @@ prolog = Prolog()
 hechos = [
     "known(yes, sombrero, 'si')",
     "known(yes, 'superficie sombrero', 'seca')",
-    "known(yes, 'tamano sombrero', 7)",
+    "known(yes, 'tamano sombrero', 7.5)",
     "known(yes, sombrero, convexo)",
     "known(yes, 'forma sombrero', 'convexo')",
     "known(yes, 'color sombrero', 'blanquecino')",
