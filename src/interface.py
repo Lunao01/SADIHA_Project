@@ -69,7 +69,60 @@ def exit():
     Function:      Método para buscar la seta dada una descripción por el usuario.
 """
 def search_mushroom():
-    pass # Aquí va toda la lógica para buscar la seta y llamar a prolog
+    number = text_box_tamano_sombrero.get()
+    forma_sombrero = combox_forma_sombrero.get()
+    color_sombrero = combox_color_sombrero.get()
+    superficie_sombrero = combox_superficie_sombrero.get()
+    forma_carpoforo = combox_forma_carpoforo.get()
+    color_carpoforo = combox_color_carpoforo.get()
+    superficie_carpoforo =  combox_superficie_carpoforo.get()
+    tipo_himenio = combox_tipo_himenio.get()
+    color_himenio = combox_color_himenio.get()
+    tipo_laminas = combox_tipo_laminas.get()
+    color_pie = combox_color_pie.get()
+    tipo_pie = combox_tipo_pie.get()
+
+    if tiene_sombrero.get() == 1: # Sí tiene sombrero
+        # Comprobamos primero si el usuario ha completado bien los valores correspondientes al sombrero 
+        if not(forma_sombrero == "" or color_sombrero == "" or superficie_sombrero == "" or number == ""):
+             # Verifica si el valor del tamaño del sombrero es positivo mayor que 0
+            try:
+                tamano_sombrero = float(number) # El tamaño del sombrero puede ser float
+                if tamano_sombrero > 0: # El tamaño del sombrero debe ser positivo
+                    a = tipo_himenio == "laminado"
+                    b = tipo_laminas != ""
+                    # Se comprueban los valores relacionados con el himenio
+                    if not(tipo_himenio == "" or color_himenio == "") and ((a and b) or (not a and not b)):
+                        # Se comprueban los valores relacionados con el pie (si tiene pie claro)
+                        if tiene_pie.get() == 1 and (color_pie == "" or tipo_pie == ""):
+                            messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+                        else:
+                            print("CORRECTISIMO") # AQUI VA LA LLAMADA AL MÉTODO PARA EL CÁLCULO CON PROLOG
+                    else:
+                        messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+                else:
+                    messagebox.showinfo("Mensaje", "El tamaño del sombrero debe ser un valor numérico positivo.")
+            except ValueError:
+                messagebox.showinfo("Mensaje", "El tamaño del sombrero debe ser un valor numérico positivo.")
+        else:
+            messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+    else: # No tiene sombrero
+        # Se comprueban los valores relacionados con el carpóforo
+        if not(forma_carpoforo == "" or color_carpoforo == "" or superficie_carpoforo == ""):
+            a = tipo_himenio == "laminado"
+            b = tipo_laminas != ""
+            # Se comprueban los valores relacionados con el himenio
+            if not(tipo_himenio == "" or color_himenio == "") and ((a and b) or (not a and not b)):
+                # Se comprueban los valores relacionados con el pie (si tiene pie claro)
+                if tiene_pie.get() == 1 and (color_pie == "" or tipo_pie == ""):
+                    messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+                else:
+                    print("CORRECTISIMO") # AQUI VA LA LLAMADA AL MÉTODO PARA EL CÁLCULO CON PROLOG
+            else:
+                messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+        else:
+            messagebox.showinfo("Mensaje", "Complete todos los campos correctamente.")
+
 
 
 """
@@ -197,7 +250,7 @@ def go_back_taxonomy():
 def open_pdf():
     ruta_pdf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "taxonomy", listbox.get(listbox.curselection()) + ".pdf") 
     try:
-        os.startfile(ruta_pdf)  # Abrir el archivo con el visor de PDF predeterminado
+        webbrowser.open(ruta_pdf)
     except OSError:
         print("No se pudo abrir el archivo PDF.")
 
@@ -233,23 +286,10 @@ root.resizable(False, False)
 tiene_sombrero = IntVar()
 tiene_sombrero.set(1)
 tamano_sombrero = 0
-forma_sombrero = ""
-color_sombrero = ""
-superficie_sombrero = ""
-forma_carpoforo = ""
-color_carpoforo = ""
-superficie_carpoforo = ""
-tipo_himenio = ""
-color_himenio = ""
-tipo_laminas = ""
 tiene_pie = IntVar()
 tiene_pie.set(1)
 pie_con_anillo = IntVar()
 pie_con_anillo.set(1)
-color_pie = ""
-tipo_pie = ""
-
-
 
 
 ###############################################################################################################################
