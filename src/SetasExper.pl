@@ -1,6 +1,36 @@
-:- dynamic known/3. % como el si/no de antes
-:- dynamic salida/2. % Habitat y comestibilidad
-:- discontiguous seta/1. % Para que no de warning, YO HE PUESTO TODAS JUNTAS, NO SE PORQUE SALE
+/* Sistema experto de idetificación y clasificación de setas,
+*  para la asignatura de Programación Declarativa- Curso 2023/2024.
+*   Autores:
+*  - Alberto Barrais Bellerín
+*  - Franciosco Javier Luna Ortiz
+*
+*  Versión 1.0
+*  Fecha: 18/04/2024
+*
+*  Descripción:
+*  El sistema experto es un programa que permite identificar y clasificar 
+*  setas en función de sus características.
+*  Para ello, se ha utilizado una base de conocimiento que contiene las
+*  características de las setas y las reglas que permiten clasificarlas.
+*  
+*
+*  La base de datos contine la información de 25 especies de setas que habitan la 
+*  peninsula iberica.
+*
+*
+*  Uso:
+*  Para utilizar el sistema experto, el usuario debe introducir la palabra "identificar."
+*  y a continuación responder a las preguntas que se le plantean con "si" o "no".
+*  En caso de no saber la respuesta, el usuario DEBE responder con "ns".
+*/
+
+:- dynamic known/3. % Para saber si se conoce una característica
+:- dynamic salida/2. % Respuestas que se mostrarán en la interfaz: Habitat y comestibilidad
+:- discontiguous seta/1. % Para que no de warning
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% INICIALIZACIÓN  (NOTE:USO EXPLUSIVO PARA PRUEBAS)%%%
 iniciar :-
     assert(known(yes, sombrero, 'si')),
     assert(known(yes, 'superficie sombrero', 'seca')),
@@ -20,9 +50,8 @@ iniciar :- true.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% WARNING: Versión para multievaluadas.
 
-% añado memoria
+%%% CLAUSULAS DE VERIFICACIÓN %%%
 verificar(A, ValorDeseado, MenuList) :- 
     (known(yes, A, ValorRecordado)->true;fail),
     verificarExiseCaracteristica(ValorRecordado,MenuList),
@@ -42,11 +71,16 @@ verificarExiseCaracteristica(Valor,MenuList):-
     member(Valor, MenuList), 
     !. 
 
+%%% CLAUSULAS AUXILIARES %%%    
+
+% Borra todas las características conocidas y las salidas
 limpiar :- retractall(known(_,_,_)), retractall(salida(_,_)).
 limpiar :- true.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%% CARACTERISTICAS %%%
+
 %% Características: Sombrero %%
 % Tiene sombrero
 sombrero(X) :- verificar(sombrero, X, ['si', 'no']).
@@ -87,6 +121,7 @@ pie_tipo(X) :- verificar('tipo pie', X, ['grueso', 'fino', 'proporcional']).
 
 
 %%% ORDENES %%%
+
 orden('Agaricales'):-
     sombrero('si'),
     himenio_tipo('laminado'),
@@ -151,7 +186,6 @@ seta('Agaricus arvensis'):-
     pie_tipo('grueso'),
     assertz(salida(habitat,'Suele dar un primer brote en primavera, en el otoño vuelve a aparecer de nuevo, ligada normalmente a los pastizales y campas, aunque también la hemos visto en claros herbosos de pinares.')),
     assertz(salida(comestibilidad,'Constituye un buen comestible esta seta habitual en las campas de nuestra geografía, recolectable solo en estado joven, cuando las láminas no se han puesto todavía marrones. Es ciertamente parecida la especie, también comestible, Agaricus urinascens, propia de pastizales de montaña y páramos, de tamaño aún más grande y con la cutícula netamente agrietada.')).
-
 
 seta('Amanita muscaria'):-
     familia('Amanitaceae'),
@@ -352,7 +386,7 @@ seta('Formitopsis pinicola'):-
     assertz(salida(comestibilidad,'No es comestible por su sabor y consistencia dura y fibrosa.')).
 
 % NOTE: Trametes hirsuta y Trametes versicolor son muy parecidos
-% Pero a la familia que pertenecen enggloba a mas setas de este programa
+% Pero a la familia que pertenecen engloba a mas setas de este programa
 % Que no comparten las mismas caracteristicas
 seta('Trametes hirsuta'):-
     orden('Polyporales'),
