@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Librerías
 from tkinter import *
 from tkinter import messagebox, Canvas
@@ -151,12 +152,15 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
         # Resultados
         messagebox.showinfo("Mensaje", "¡Seta encontrada! Generando el informe.")
         respuesta = list(prolog.query("seta(X)"))
+        '''
+            print("Respuesta:", respuesta[0]["X"])
+            print("\nHabitat:")
+            print(list(prolog.query("salida(habitat,X)"))[0]["X"])
+            print("\nComestibilidad:")
+            print(list(prolog.query("salida(comestibilidad,X)"))[0]["X"])
+        '''
 
-        print("Respuesta:", respuesta[0]["X"])
-        print("\nHabitat:")
-        print(list(prolog.query("salida(habitat,X)"))[0]["X"])
-        print("\nComestibilidad:")
-        print(list(prolog.query("salida(comestibilidad,X)"))[0]["X"])
+        generate_report(respuesta[0]["X"],list(prolog.query("salida(habitat,X)"))[0]["X"],list(prolog.query("salida(comestibilidad,X)"))[0]["X"], tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie )
 
 
 
@@ -188,23 +192,23 @@ def create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero
     # Si tiene sombrero
     if tiene_sombrero == 1:
         facts.append("known(yes, sombrero, 'si')")
-        facts.append("known(yes, 'tamano sombrero',"+ tamano_sombrero +")")
-        facts.append("known(yes, 'forma sombrero',"+ forma_sombrero +")")
-        facts.append("known(yes, 'color sombrero',"+ color_sombrero +")")
-        facts.append("known(yes, 'superficie sombrero',"+ superficie_sombrero+")")
+        facts.append("known(yes, 'tamano sombrero',"+ str(tamano_sombrero) +")")
+        facts.append("known(yes, 'forma sombrero','"+ forma_sombrero +"')")
+        facts.append("known(yes, 'color sombrero','"+ color_sombrero +"')")
+        facts.append("known(yes, 'superficie sombrero','"+ superficie_sombrero+"')")
 
     else: # Si no tiene sombrero
         facts.append("known(yes, sombrero, 'no')")
-        facts.append("known(yes, 'forma carpoforo',"+ forma_carpoforo +")")
-        facts.append("known(yes, 'color carpoforo',"+ color_carpoforo +")")
-        facts.append("known(yes, 'superficie carpoforo',"+ superficie_carpoforo +")")
+        facts.append("known(yes, 'forma carpoforo','"+ forma_carpoforo +"')")
+        facts.append("known(yes, 'color carpoforo','"+ color_carpoforo +"')")
+        facts.append("known(yes, 'superficie carpoforo','"+ superficie_carpoforo +"')")
 
     # Himenio
-    facts.append("known(yes, 'tipo himenio',"+ tipo_himenio +")")
-    facts.append("known(yes, 'color himenio',"+ color_himenio +")")
+    facts.append("known(yes, 'tipo himenio','"+ tipo_himenio +"')")
+    facts.append("known(yes, 'color himenio','"+ color_himenio +"')")
     # Si el himenio es laminado hay que tener en cuenta el tipo de láminas
     if tipo_himenio == "laminado":
-        facts.append("known(yes, 'tipo laminas',"+ tipo_laminas +")")
+        facts.append("known(yes, 'tipo laminas','"+ tipo_laminas +"')")
 
     # Ahora hay que tener en cuenta el pie
     if tiene_pie == 1: # Sí tiene pie
@@ -214,12 +218,66 @@ def create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero
             facts.append("known(yes, 'anillo', 'si')")
         else: # No tiene anillo
             facts.append("known(yes, 'anillo', 'no')")
-        facts.append("known(yes, 'color pie',"+ color_pie +")")
-        facts.append("known(yes, 'tipo pie',"+ tipo_pie +")")
+        facts.append("known(yes, 'color pie','"+ color_pie +"')")
+        facts.append("known(yes, 'tipo pie','"+ tipo_pie +"')")
     else: # No tiene pie
         facts.append("known(yes, pie, 'no')")
 
     return facts
+
+"""
+    Method name:   generate_report
+    Function:      Método para generar el informe de la seta.
+"""
+def generate_report(nombre, habitat, comestible, tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
+    # Crear ventana
+    report_w = Tk()
+    report_w.title("Generador de Informes de Setas")
+
+    # Crear cuadro de texto para mostrar el informe
+    texto_informe = Text(report_w, height=25, width=60)
+    texto_informe.pack(pady=10)
+    texto_informe.config(state=DISABLED)  
+
+    # Generar el informe
+    informe_texto = (
+        "Informe de la seta:\n"
+        "---------------------------------------\n"
+        f"Nombre: {nombre}\n"
+        "---------------------------------------\n"
+        f"Habitat: {habitat}\n\n"
+        f"Comestibilidad: {comestible}\n"
+        "---------------------------------------\n"
+        f"Rasgos físicos:\n\n"
+        f"Tiene sombrero: {tiene_sombrero}\n"
+        f"Diámetro del sombrero (cm): {tamano_sombrero}\n"
+        f"Forma del sombrero: {forma_sombrero}\n"
+        f"Color del sombrero: {color_sombrero}\n"
+        f"Superficie del sombrero: {superficie_sombrero}\n"
+        f"Forma del carpóforo: {forma_carpoforo}\n"
+        f"Color del carpóforo: {color_carpoforo}\n"
+        f"Superficie del carpóforo: {superficie_carpoforo}\n"
+        f"Tipo de himenio: {tipo_himenio}\n"
+        f"Color del himenio: {color_himenio}\n"
+        f"Tipo de láminas: {tipo_laminas}\n"
+        f"Tiene pie: {tiene_pie}\n"
+        f"Pie con anillo: {pie_con_anillo}\n"
+        f"Color del pie: {color_pie}\n"
+        f"Tipo de pie: {tipo_pie}\n"
+    )
+
+    # Actualizar el cuadro de texto con el informe generado
+    texto_informe.config(state=NORMAL)
+    texto_informe.delete('1.0', END)
+    texto_informe.insert(END, informe_texto)
+    texto_informe.config(state=DISABLED)
+
+    # Ejecutar la ventana
+    report_w.mainloop()
+
+
+
+
 
 
 """
@@ -742,6 +800,8 @@ link_2.tag_configure("hipervinculo", foreground="blue", underline=True)
 link_2.insert("1.0", "fungipedia.org", "hipervinculo")
 link_2.tag_bind("hipervinculo", "<Button-1>", open_link_2) # Función para abrir el enlace
 link_2.configure(state="disabled") # Para que el usuario no pueda modificarlo
+
+
 
 
 root.mainloop() # Loop de la ventana
