@@ -19,11 +19,8 @@
 *
 *
 *  Uso:
-*  Para utilizar el sistema experto, el usuario debe introducir la palabra "identificar."
-*  y a continuación responder a las preguntas que se le plantean con "si" o "no".
-*  En caso de no saber la respuesta, el usuario DEBE responder con "ns".
+*  Para utilizar el sistema experto, el usuario debe ejecutar el archivo "interface.py".
 */
-
 :- dynamic known/3. % Para saber si se conoce una característica
 :- dynamic salida/2. % Respuestas que se mostrarán en la interfaz: Habitat y comestibilidad
 :- discontiguous seta/1. % Para que no de warning
