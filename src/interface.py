@@ -135,9 +135,10 @@ def search_mushroom():
 def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
     # Carga el archivo Prolog
     prolog = Prolog()
+    prolog.retractall("known(_,_,_)") # Se eliminan los hechos creados
+    prolog.retractall("salida")
     # Se generan los hechos
     hechos = create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie)
-    
     for hecho in hechos:
         prolog.assertz(hecho)
 
@@ -145,6 +146,7 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
     # Consulta sobre la seta
     consulta = "seta(X)"
     soluciones = list(prolog.query(consulta))
+
 
     if len(soluciones) == 0:
         messagebox.showinfo("Mensaje", "No se ha encontrado ninguna seta con esas características.")
