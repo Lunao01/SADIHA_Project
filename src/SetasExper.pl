@@ -130,7 +130,7 @@ orden('Boletales'):-
 
 orden('Auriculariales'):-
     sombrero('no'),
-    carpoforo_superficie('gelatinoso'),
+    carpoforo_superficie('gelatinosa'),
     himenio_tipo('plegado'),
     pie('no').
 
