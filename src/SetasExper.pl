@@ -314,7 +314,8 @@ seta('Chroogomphus fulmineus'):-
     assertz(salida(habitat,'Esta seta mediterránea parece en otoño e invierno solitariamente o en grupos, generalmente ligado al árbol Pinus pinaster.')),
     assertz(salida(comestibilidad,'Comestible. Sin olor significativo; sabor dulce pero no distintivo.')).
 
-setas('Suillus luteus'):-
+
+seta('Suillus luteus'):-
     orden('Boletales'),
     sombrero_forma('convexo'),
     sombrero_tamano(4,12),
@@ -327,6 +328,8 @@ setas('Suillus luteus'):-
     pie_tipo('proporcional'),
     assertz(salida(habitat,'Es nativa de las zonas templadas y frías de Europa y Asia, pero ha sido introducido en todo el mundo. Vive en simbiosis con las raíces de algunas especies de pino (género Pinus). Puede ser muy común en su hábitat.')),
     assertz(salida(comestibilidad,'Es una especie comestible si se elimina la cutícula, que es laxante, pero no es una seta valorada.')).
+
+
 
 %% Auriculariales %%
 seta('Auricularia auricula-judae'):-
