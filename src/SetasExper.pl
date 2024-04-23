@@ -427,7 +427,7 @@ seta('Thelephora terrestris'):-
     himenio_tipo('plegado'),
     himenio_color('pardo oscuro'),
     pie_color('pardo oscuro'),
-    pie_tipo('proporcional'),
+    pie_tipo('fino'),
     assertz(salida(habitat,'Aparece al menos en Europa y las zonas cercanas. Habita zonas boscosas o incluso zonas ajardinadas.')),
     assertz(salida(comestibilidad,'Es una especie no comestible. Vive en simbiosis principalmente con coníferas, pero también en otras especies de plantas con flor, como Eucalyptus.')).
 
