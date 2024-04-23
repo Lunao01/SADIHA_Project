@@ -94,7 +94,7 @@ sombrero_tamano(Vmin,Vmax) :- verificarTamano(Vmax,Vmin).
 % Forma del carpóforo
 carpoforo_forma(X) :- verificar('forma carpoforo', X, ['oreja','semicircular','pezuna']).
 % Color del carpóforo
-carpoforo_color(X) :- verificar('color carpoforo', X, ['pardo oscuro', 'marron rojizo', 'pardo gris', 'rojo cinabrio','grisaceo', 'pardo rojizo', 'circulo concentrico pardos y blanquecinos']).
+carpoforo_color(X) :- verificar('color carpoforo', X, ['pardo oscuro', 'marron rojizo', 'pardo gris', 'rojo cinabrio','grisaceo', 'pardo rojizo', 'circulos concentricos pardos y blanquecinos']).
 % Superficie del carpóforo
 carpoforo_superficie(X) :- verificar('superficie carpoforo', X, ['gelatinosa', 'aterciopelada', 'rugosa', 'seca', 'resinosa']).
 
@@ -400,7 +400,7 @@ seta('Trametes hirsuta'):-
 seta('Trametes versicolor'):-
     orden('Polyporales'),
     carpoforo_forma('semicircular'),
-    carpoforo_color('circulo concentrico pardos y blanquecinos'),
+    carpoforo_color('circulos concentricos pardos y blanquecinos'),
     carpoforo_superficie('aterciopelada'),
     himenio_color('gris claro'),
     assertz(salida(habitat,'Es una especie que fructifica sobre madera de árboles planifolios, coníferas, e incluso sobre algunos frutales, provocando en el árbol una podredumbre blanca. Es un hongo muy frecuente y extendido que puede hacer acto de aparición en cualquier época del año si las condiciones ambientales son adecuadas.')),
