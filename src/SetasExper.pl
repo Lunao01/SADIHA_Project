@@ -322,7 +322,7 @@ setas('Suillus luteus'):-
     sombrero_superficie('viscosa'),
     himenio_tipo('poroso'),
     himenio_color('amarillento'),
-    pie_anillo('no'),
+    pie_anillo('si'),
     pie_color('amarillento'),
     pie_tipo('proporcional'),
     assertz(salida(habitat,'Es nativa de las zonas templadas y frías de Europa y Asia, pero ha sido introducido en todo el mundo. Vive en simbiosis con las raíces de algunas especies de pino (género Pinus). Puede ser muy común en su hábitat.')),
