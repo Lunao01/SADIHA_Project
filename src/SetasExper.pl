@@ -248,7 +248,7 @@ seta('Armillaria gallica'):-
     assertz(salida(comestibilidad,'Es comestible en estado joven, conviene tirar el agua de cocinarla para evitar su amargor, cruda puede causar trastornos digestivos.')).
 
 %% Boletales %%
-seta('Boletus aerus'):-
+seta('Boletus aereus'):-
     familia('Boletaceae'),
     sombrero_tamano(10,20),
     sombrero_color('pardo oscuro'),
