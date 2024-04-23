@@ -362,7 +362,7 @@ seta('Pycnoporus cinnabarinus'):-
     orden('Polyporales'),
     carpoforo_forma('semicircular'),
     carpoforo_color('rojo cinabrio'),
-    carpoforo_superficie('rugoso'),
+    carpoforo_superficie('rugosa'),
     himenio_color('rojo cinabrio'),
     assertz(salida(habitat,'Aparece por todo el Hemisferio Norte. Fructifica sobre madera muerta con preferencia por árboles de hoja caduca como los géneros Fagus o Quercus. Puede aparecer en cualquier época del año siempre y cuando haya humedad.')),
     assertz(salida(comestibilidad,'Su carne, fibrosa con humedad y leñosa en seco, es mal comestible.')).
