@@ -1,18 +1,17 @@
-# -*- coding: utf-8 -*-
 # Librerías
 from tkinter import *
-from tkinter import messagebox, Canvas
+from tkinter import messagebox
 from tkinter.ttk import Combobox
 from PIL import Image, ImageTk
 import os
 import webbrowser
-from pyswip import Prolog
+from pyswip import Prolog # Módulo que proporciona una interfaz entre Python y Prolog. Permite ejecutar consultas Prolog desde Python (para instalar --> pip install pyswip)
 
 
 """
-    Class name: interface
-    Function:   El objetivo de esta clase es implementar una interfaz funcional que permita comunicarnos con el usuario y mostrar los resultados 
-                del archivo setasExper.pl, el programa de inferencia escrito en Prolog.
+    Name: main.py
+    Function:   El objetivo de este programa es implementar una interfaz funcional que permita comunicarnos con el usuario y mostrar los resultados 
+                del archivo SetasExper.pl, el programa de inferencia escrito en Prolog.
 """
 
 
@@ -35,8 +34,8 @@ def click_search():
     horizontal_line.place(x = 405, y = 300) # Frame para línea vertical 1
 
 """
-    Method name:   click_information 
-    Function:      Método que activa el botón Información, con el objetivo de acceder a una ventana donde se explique el objetivo del proyecto
+    Method name:   click_taxonomy 
+    Function:      Método que activa el botón Taxonomía, el objetivo es mostrar una ventana donde el usuario pueda acceder a la taxonomía del proyecto
 """
 def click_taxonomy():
     root_frame.place_forget() # Se oculta el frame de las opciones principales
@@ -149,6 +148,7 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
 
 
     if len(soluciones) == 0:
+        # No se ha encontrado la seta
         messagebox.showinfo("Mensaje", "No se ha encontrado ninguna seta con esas características.")
     else:
         # Resultados
@@ -161,7 +161,7 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
             print("\nComestibilidad:")
             print(list(prolog.query("salida(comestibilidad,X)"))[0]["X"])
         '''
-
+        # Se genera el informe de la seta encontrada
         generate_report(respuesta[0]["X"],list(prolog.query("salida(habitat,X)"))[0]["X"],list(prolog.query("salida(comestibilidad,X)"))[0]["X"], tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie )
 
 
@@ -241,6 +241,23 @@ def generate_report(nombre, habitat, comestible, tiene_sombrero, tamano_sombrero
     texto_informe.pack(pady=10)
     texto_informe.config(state=DISABLED)  
 
+    # Traducimos los valores de las variables tiene_sombrero, tiene pie y pie con anillo
+    if tiene_sombrero == 1:
+        tiene_sombrero = "Sí"
+    else:
+        tiene_sombrero = "No"
+
+    if tiene_pie == 1:
+        tiene_pie = "Sí"
+    else:
+        tiene_pie = "No"
+
+    if pie_con_anillo == 1:
+        pie_con_anillo = "Sí"
+    else:
+        pie_con_anillo = "No"
+
+    
     # Generar el informe
     informe_texto = (
         "Informe de la seta:\n"
@@ -265,7 +282,8 @@ def generate_report(nombre, habitat, comestible, tiene_sombrero, tamano_sombrero
         f"Tiene pie: {tiene_pie}\n"
         f"Pie con anillo: {pie_con_anillo}\n"
         f"Color del pie: {color_pie}\n"
-        f"Tipo de pie: {tipo_pie}\n"
+        f"Tipo de pie: {tipo_pie}\n\n\n"
+        f"Nota: Para los rasgos sin valor atribuido, son características que no aplican para el espécimen encontrado.\n\n\n"
     )
 
     # Actualizar el cuadro de texto con el informe generado
@@ -428,7 +446,12 @@ def open_link_2(event):
     webbrowser.open("https://www.fungipedia.org/")
 
 
-# Definir ventana de la aplicación
+
+
+###############################################################################################################################
+#   Ventana Principal                                                                                                         #
+###############################################################################################################################
+# Se crea la ventana principal de la aplicación
 root = Tk() 
 root.title("SADIHA") 
 root.geometry("1100x600") 
@@ -442,7 +465,6 @@ root.resizable(False, False)
 ###############################################################################################################################
 tiene_sombrero = IntVar()
 tiene_sombrero.set(1)
-tamano_sombrero = 0
 tiene_pie = IntVar()
 tiene_pie.set(1)
 pie_con_anillo = IntVar()
@@ -802,8 +824,6 @@ link_2.tag_configure("hipervinculo", foreground="blue", underline=True)
 link_2.insert("1.0", "fungipedia.org", "hipervinculo")
 link_2.tag_bind("hipervinculo", "<Button-1>", open_link_2) # Función para abrir el enlace
 link_2.configure(state="disabled") # Para que el usuario no pueda modificarlo
-
-
 
 
 root.mainloop() # Loop de la ventana
