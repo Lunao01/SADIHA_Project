@@ -376,7 +376,7 @@ seta('Fomes fomentarius'):-
     assertz(salida(habitat,'Un hongo que suele parasitar abedules (Betula sp) o hayas (Fagus sp) y que puede econtrarse tanto en Eurásia como Norteamérica. Puede vivir tanto en árboles vivos, comportándose como parásito, como en estos mismos árboles tras morir, pasando a una vida saprofítica.')),
     assertz(salida(comestibilidad,'La seta tiene una textura muy dura y leñosa, lo que la hace desagradable al paladar y difícil de digerir.')).
 
-seta('Formitopsis pinicola'):-
+seta('Fomitopsis pinicola'):-
     orden('Polyporales'),
     carpoforo_forma('semicircular'),
     carpoforo_color('pardo rojizo'),
