@@ -135,7 +135,7 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
     # Carga el archivo Prolog
     prolog = Prolog()
     prolog.retractall("known(_,_,_)") # Se eliminan los hechos creados
-    prolog.retractall("salida")
+    prolog.retractall("salida(_,_)")
     # Se generan los hechos
     hechos = create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie)
     for hecho in hechos:
