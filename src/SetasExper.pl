@@ -444,7 +444,7 @@ seta('Cantharellus cibarius'):-
     assertz(salida(habitat,'Habita en bosques variados e incluso zonas de matorral. Tiene una distribución prácticamente mundial.')),
     assertz(salida(comestibilidad,'Es una especie comestible, que suele fructificar desde finales de primavera hasta finales de otoño.')).
 
-seta('Cantharellus cinereus'):-
+seta('Craterellus cinereus'):-
     orden('Cantharellales'),
     sombrero_tamano(3,5),
     sombrero_color('negruzco'),
