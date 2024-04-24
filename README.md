@@ -1,8 +1,6 @@
 # SADIHA_Project
 Sistema de Ayuda a la Decisión para la Identificación de Hongos Agaricomycetes (SADIHA)
 
-Para iniciar la aplicación ejecute el archivo main.py
-
 # Requerimientos del Proyecto
 
 Este proyecto requiere las siguientes bibliotecas para ejecutarse correctamente:
@@ -15,4 +13,6 @@ Este proyecto requiere las siguientes bibliotecas para ejecutarse correctamente:
 Asegúrate de tener estas bibliotecas instaladas antes de ejecutar el código.
 
 
+# Ejecución del Software
 
+Para iniciar la aplicación ejecute el archivo main.py
