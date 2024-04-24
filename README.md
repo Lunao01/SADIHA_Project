@@ -12,6 +12,8 @@ Este proyecto requiere las siguientes bibliotecas para ejecutarse correctamente:
 
 Asegúrate de tener estas bibliotecas instaladas antes de ejecutar el código.
 
+- **Versión de SWI-Prolog**: Para la ejecución y pruebas del proyecto se ha empleado la versión 7.6.0 de SWI-Prolog.
+
 
 # Ejecución del Software
 
