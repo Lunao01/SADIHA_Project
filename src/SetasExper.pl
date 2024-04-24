@@ -1,11 +1,11 @@
-/* Sistema experto de idetificación y clasificación de setas,
+/* Sistema experto de identificación y clasificación de setas,
 *  para la asignatura de Programación Declarativa- Curso 2023/2024.
 *   Autores:
 *  - Alberto Barrais Bellerín
-*  - Franciosco Javier Luna Ortiz
+*  - Francisco Javier Luna Ortiz
 *
 *  Versión 1.0
-*  Fecha: 18/04/2024
+*  Fecha: 24/04/2024
 *
 *  Descripción:
 *  El sistema experto es un programa que permite identificar y clasificar 
@@ -14,12 +14,12 @@
 *  características de las setas y las reglas que permiten clasificarlas.
 *  
 *
-*  La base de datos contine la información de 25 especies de setas que habitan la 
+*  La base de datos contine la información de 26 especies de setas que habitan la 
 *  peninsula iberica.
 *
 *
 *  Uso:
-*  Para utilizar el sistema experto, el usuario debe ejecutar el archivo "interface.py".
+*  Para utilizar el sistema experto, el usuario debe ejecutar el archivo "main.py".
 */
 :- dynamic known/3. % Para saber si se conoce una característica
 :- dynamic salida/2. % Respuestas que se mostrarán en la interfaz: Habitat y comestibilidad
@@ -27,7 +27,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% INICIALIZACIÓN  (NOTE:USO EXPLUSIVO PARA PRUEBAS)%%%
+%%% INICIALIZACIÓN  (NOTE:USO EXCLUSIVO PARA PRUEBAS)%%%
 iniciar :-
     assert(known(yes, sombrero, 'si')),
     assert(known(yes, 'superficie sombrero', 'seca')),
