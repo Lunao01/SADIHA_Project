@@ -129,7 +129,7 @@ def search_mushroom():
 
 """
     Method name:   inference
-    Function:      Método para empleado para ejecutar un archivo pl y generar la inferencia con el objetivo de encontrar X seta.
+    Function:      Método para empleado para ejecutar un archivo .pl y generar la inferencia con el objetivo de encontrar X seta.
 """
 def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
     # Carga el archivo Prolog
@@ -172,6 +172,7 @@ def inference(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, s
 """
 def create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero, superficie_sombrero, forma_carpoforo, color_carpoforo, superficie_carpoforo, tipo_himenio, color_himenio, tipo_laminas, tiene_pie, pie_con_anillo, color_pie, tipo_pie):
     # Prueba para saber que funciona bien
+    '''
     print("Variables:")
     print("Tiene sombrero:", tiene_sombrero)
     print("Tamaño sombrero:", tamano_sombrero)
@@ -188,6 +189,7 @@ def create_facts(tiene_sombrero, tamano_sombrero, forma_sombrero, color_sombrero
     print("Pie con anillo:", pie_con_anillo)
     print("Color pie:", color_pie)
     print("Tipo pie:", tipo_pie)
+    '''
     
     # Se crea un vector con todos los hechos que se quieren almacenar al ejecutar el archivo .pl
     facts = []
@@ -247,15 +249,16 @@ def generate_report(nombre, habitat, comestible, tiene_sombrero, tamano_sombrero
     else:
         tiene_sombrero = "No"
 
-    if tiene_pie == 1:
-        tiene_pie = "Sí"
-    else:
-        tiene_pie = "No"
-
     if pie_con_anillo == 1:
         pie_con_anillo = "Sí"
     else:
         pie_con_anillo = "No"
+
+    if tiene_pie == 1:
+        tiene_pie = "Sí"
+    else:
+        tiene_pie = "No"
+        pie_con_anillo = " "
 
     
     # Generar el informe
