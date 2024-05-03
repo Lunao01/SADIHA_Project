@@ -267,7 +267,7 @@ def generate_report(nombre, habitat, comestible, tiene_sombrero, tamano_sombrero
         "---------------------------------------\n"
         f"Nombre: {nombre}\n"
         "---------------------------------------\n"
-        f"Habitat: {habitat}\n\n"
+        f"Hábitat: {habitat}\n\n"
         f"Comestibilidad: {comestible}\n"
         "---------------------------------------\n"
         f"Rasgos físicos:\n\n"
